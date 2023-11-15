@@ -1,0 +1,25 @@
+NOVOS COMPARTILHAMENTOS:
+
+		----> uma classe base para a classe Objeto, a classe ObjetoBase, que tem:
+			----> um id, para calculos de remove e find dentro de uma lista de Objeto.
+			----> um indice hash, que pode ser sbscrito,  afim de ordenação de uma lista de Objeto.
+			
+		----> com esta classe, é possível:
+							-----> remoção segura de  Objeto,, dentro de uma lista de Objeto.
+							-----> encontro de Objeto, dentro de uma lista de Objeto.
+							-----> ordenação hash, com um número hash que registra um dado pertinente para ordenação de uma lista de Objeto.
+							-----> com o id, é possível verificar se a instancia de um Objeto é igual a outra instancia.
+							-----> com o hash, é possível determinar se um Objeto é menor, maior ou igual a um Objeto.
+							
+		----> uma classe para métodos de Objeto, dentro da classe Objeto! Ordenação, Remoção de Objeto, Encontro de Objeto, e por aí vai...
+			
+		----> encontro, remoção dentro de uma lista de funções (classe Metodo, que é um classe derivada de Objeto):
+		já tinha conhecimento por causa de um projeto de jogo, onde tinha que remover e retornar uma função dentro de uma lista de funções [Update], e [Draw],
+		mas daí uma conclusão maior que o anotado aqui, não tinha...
+							-----> numero hash para quantidade de tempo de processamento de  uma função! É possível ordenar uma lista de processos (instancia de
+							um programa dentro do S.O.), como p.ex., executar processos que demandam menor tempo de processaomento, mas aí é uma questão
+							de definição de estratégia de gerenciamento de processos.
+							
+			
+			
+ESTÁ LIBERADO O ALGORITMO DE FUNÇÕES STRINGS...

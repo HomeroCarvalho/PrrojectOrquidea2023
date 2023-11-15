@@ -1,0 +1,141 @@
+NOVIDADES:
+		
+		[Headers]:
+				utilizaçção de headers, que contem as definições de objetos, classes, funções, métodos, tipos de variáveis,
+				contornando o problema de compilar uma chamada de função por exemplo, num código anterior a definição da função.
+				É o mesmo problema de linguagem C, que contrornou com uso de "prototipos de função", no começo do código.
+				No Orquidea, este problema tem solução também: é fácil compilar definições, pois não variam como instruções de
+				programação estruturada..
+
+		[WrapperData Objects]:
+				arrays, matrizes, dicionarios, jaggedArrays, são agora nativos da linguagem: não é preciso compilar
+				de alguma biblioteca, já está disponível, como estruturas de dados nativas.
+
+		[Method]:
+				otimização de metodos de vindo de classes importadas da linguagem base (CSharp).
+				normalmente, as bibliotecas de linguagens de programação são feitas em C/C++, nesta
+				linguagem as bibliotecas são feitas em C sharp..
+				A otimização pula algumas etapas, como ler as propriedades do objeto, e salvar as propriedades
+				do objeto quando termina o processamento da chamada de método.
+				A rigor, as classes importadas implementam funções sobre um objeto único, como [Bitmap],
+				numa library para instanciação e desenho de imagens.
+
+
+
+
+
+
+NOVO ALGORITMO PARA WrapperDatas:
+	-----> quebrar as expressoes em tokens, verificar se os tokens contém objetos WrapperData. Se tiver, e não for instanciação, fazer o processamento
+		   de inserção de WrapperData.GetElemnt, WrapperData.SetElement, e após fazer o procedimento normal de expressoes. os tokens da expressao
+		   conterão os GetElemnt, SetElement "empacotados"!
+						----> PARA ISSO, É NECESSÁRIO OBTER DE CADA EXPRESSÃO, OS SEUS TOKENS EXTRAIDOS. VERIFICAR SE ISTO ESTÁ OCORRENDO..
+		   
+	-----> se os tokens conter a instrução var, ou nomes de tipos de wrapper data, fazer o procedimento de instanciação de wrapper data.
+	após a expressao for processada quanto a wrapper data, continuar o procedimento normal de expressão.
+	
+	
+
+
+
+
+NAO SE ESQUECER: no [EvalExpression], se o retorno for uma variavel, em vez retornar um [oject], retornar uma [Variavel],
+setando o campo [valor] da variavel, o [object] calculado na avaliação da expressao... 
+			----> ficou mais claro ainda, como o [EvalExpression] trabalha no calculo de expressoes: o valor calculado é setado para: um [Variavel], ou um [Objeeto]...
+			
+			----> UM Objeto tem que ter o nome, e um valor do tipo [object], que pode ser outro Objeto, ou uma variavel como int,float, string, char, etc...
+			----> variaveis seriam de tipos base da linguagem.
+		
+		
+			
+UM GARGALO é o processamento de expressoes de inteiros: são utlizados como indexadores em arrays, listas, matrizes. É essencial aumentar
+o desempenho, utilizando uma [EvalExpressionInteger] feito particularmente para expressões de  inteiros...
+			-----> considerar uma otimização de mapear operadores de inteiros, para uma linguagem de codigos em bytes! A ser utilizada
+				   em [EvalExpressionInteger]: operaçoes aritmeticas, pilha de variaveis, operaçoes de manipulação de bits, etc...
+								----> baixa prioridade, primeiro codificar o processamento de classes de dados expandidas, e avaliação
+								de chamadas de método, em [EvalExpression].
+				   
+Um novo tipo de classe expandida: Map, com mapeamento hash, de desempenho O(1), feito um mapeamento da chave, para um numero inteiro,
+e deste número inteiro, uma busca hash para conseguir o elemento requerido... Este procedimento evita problemas de espaço de memória
+para guardar todas chaves hash...
+			-----> implementação trabalhoso, mas fácil. Mudança aprovada.
+			
+Considando uma sintaxe mais clara, incluir nas classes expandidas, uma definição não como p.ex., var M=[1,2,3], para Vector M= [1,2,3].
+Isto permite utilizar mais de um formato de definição, como p.ex., Vector M=[1,2,3] e List M=[1,2,3]...
+
+----->( feito)  modificar os [WrapperData], para definição de var nomeObjeto=ExpressaoInstanciacao, para nomeDoWrappeData nomeObjeto=ExpressaoInstanciacao,
+fica melhor.
+			-----> mais sobre isso, o [WrapperData] [Vetor], deve conter uma segunda definição: TipoObjeto[] nomeObjeto=ExpressaoInstanciacao,
+			que é o sonho de objetivo da linguagem, a falta de um Array,Vetor, como quase todas outras linguagens possuem...
+			
+
+Projeto ParserOrquidea: as novidades da próxima manutenção:
+
+	-----> (feito) Sistema de reconhecimento de comandos, via Expressões Regex.
+	-----> (feito) Sistema de compilação de expressões, também por via Expressões Regex.
+	-----> (feito) Compilação que resolve o problema de posição do código instanciado e utilizado.
+						-----> Em C, há o mesmo problema (resolvido) de declaração de funções, resolvido em C
+						por declaração de protótipo de funções...
+						-----> A solução no projeto foi de processamento prévio de classes, métodos, propriedades
+						e operadores. É fácil esta pré-compilação, justamente porque não há variações, o código
+						de definições de tipos é fixo.
+	----> (a fazer: library Math, string, prompt, feito) Novas bibliotecas, para funções matemáticas, funções string, uma classe de escrita na tela, de textos,
+	uma classe para manipulação de arquivos.
+
+	----> (sob testes) Novas classes de tipos, "nativas", de vetores, matrizes, dicionários, sem precisar declarar bibliotecas
+	     adicionais.
+			-----> analisando o código do projeto, constatou-se que implementar uma classe nativa implicava
+			em duplicar o código de instruções, o que gera devido o processamento da classe nativa.
+					----> MAS, classes em Java (apenas para explanar o problema e a solução),
+					 como ArrayList, declara-se o acesso de um elemento, algo como: a.getElement(index),
+					 perde-se uma certa espontanidade pelo uso de métodos para acessar variáveis,
+					 no entanto permite "escalar industrialmente" muitas classes como vetores,matrizes,
+					 dicionários, etc...
+					----> uma solução proposta é que faz-se uma pré-compilação de instanciação
+					e acesso, a certos tipos de dados, transformando como segue, como exemplo:
+							m[1,5] ---> m.getElement(1,5).
+					esta implementação é de mediana complexidade para implementar, mas evita
+					a duplicação de código em instruções compilado a cada vez que se adiciona uma classe nativa.
+
+	----> Saí procurando "gargalos de processamento", e verificou-se no início da questão que execução de 
+chamada de método, é muito "custoso" em relação a execução de funções de linguagens estruturadas como C,Pascal.
+Há perda de desempenho porque precisa-se carregar os dados do objeto, os dados estáticos da classe, fazer a avaliação
+de expressões de parâmetros da chamada, executar a função do método, e depois fazer a cópia para os dados do objeto,
+e dados estáticos. Isso leva a uma perda de desempenho.
+			----> Com o problema definido, percebeu-se no entanto que em métodos importados da linguagem
+base C sharp, oode-se "pular" alguns desses procedimentos, justamente porque todos dados de objeto está embutido
+na importação desta classe.	
+			----> refletindo também, que o processamento pixel-a-pixel de imagens, e manipulação de dados
+em arquivos... Tais procedimentos deve ser implementados por classes de linguagens mais rápidas, como C, C++, e C sharp também.
+O papel da linguagem a implementar fica na "gerência" da abstração em nível alto, deixando "processamentos gargalos" para
+classes importadas..
+			-----> outra questão é que há um "gargalo de codificação" de verificação se objetos são nulo,
+ou vazio. E recentemente, teve-se uma idéia de utilizar programação orientado a aspectos para implementar a verificação
+se objetos são nulos, tomando providências como lançamento de exceções caso um objeto nulo seja processado...
+Isto é perfeitamente fácil de implementar, se já não há o processamento através de funções de corte da programação
+a aspectos da linguagem Orquidea...	
+
+		-----> o insight está aqui: 
+				SABE AQUELA IDEIA DE FAZER ALGO PARA VALIDAÇÕES DE OBJETOS NULL OU EMPTY?
+					----->A PROGRAMAÇÃO ORIENTADA A ASPECTOS PODE VERIFICAR OBJETOS NULL, E
+					      TOMAR ALGUMA PROVIDENCIA, COMO LANÇAR UMA EXCEÇÃO...
+					----->A QUANTIDADE DE CODIGO NECESSARIA EM UM PROGRAMA PODE DIMINUIR UNS ~5%
+					      POR CAUSA DA VERIFICAÇÃO DE OBJETOS NULL, com programação de aspectos!!! 
+					----->A VALIDAÇAO DE OBJETOS NULL É UM GARGALO DE ESFORÇO DE CODIFICAÇÃO,
+					      E LEVA MUITAS E MUITAS LINHAS DE CODIGO...
+
+
+----> outras aplicacoes para programacao orientada a aspecto;
+		-----> sistema de mensuracao de desempenho de tempo de um método.
+		-----> sistema de lançamento de exceções sem digamos, poluir o codigo com blocos try/catch,
+		que não há na linguagem orquidea.
+
+		
+----> OPERADORES! em muitas linguagens os operadores extenveis os aritmeticos, e alguns como ">>" em C++.
+	diante do desapontamento de codigos com operadores extensiveis, e visando a Programação Orientada a Dados, os operadores tem uma
+	função extensivel, para asssociar a um operador. Ex: vetor Dot(vetor1, vetor2), ao anicializar um operador com esta funcao, pode-se normalmente codifica: vetorR=vetor1 Dot vetor2
+ou seja, transforma uma funcao em um operador.	
+		
+
+		
+EM BREVE, IRÁ SER DISPONIBILIZADA A MANUTENÇÃO DO PROJETO, QUE faz o que foi dito...		

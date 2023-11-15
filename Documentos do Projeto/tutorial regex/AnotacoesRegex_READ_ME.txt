@@ -1,0 +1,143 @@
+APRENDIZADO DE GRUPOS, EXPRESSÕES REGEX:
+************************************************************************************************************************************************
+1 - SOBRE GRUPOS - DEFINIÇÃO:
+caracter "?": 0 ou 1 ocorrencia subpatthern
+grupo: entre parenteses: "([0..9]*)"
+nome de grupo: "(?<nome>[0..9]+")" ----> entre parentes, insira o caracter "?" + "nome do grupo".
+
+*************************************************************************************************************************************************
+2 - COMO OBTER MULTIPLAS OCORRENCIAS DE UM MESMO GRUPO EM REGEX PARA C SHARP:
+
+
+
+     -----> É preciso para cada grupo, obter as capturas deste grupo (classe "Capture"). As caputas guardam os valores de cada ocorrência de um grupo.
+	 -----> Para cada grupo, é necessário o nome do grupo, para acessar as Captures:
+					-----> string umaOcorrencia = RegexExpressao.Groups[nomeDoGrupo].Captures[indexOcorrencia].Value, 
+
+	
+	
+**************************************************************************************************************************************************
+3 - ESTE ALGORITMO OBTEM TODAS CAPTURAS DOS GRUPOS RESULTANTES DE UMA CONSULTA REGEX:
+
+
+
+GroupCollection groups = regex.Match(pattern, input).Groups
+
+string[] groupNames= regex.GetGroupNames();
+
+List<List<string>> valoresGrupos
+foreach (Group umGrupo in groups)
+	{
+		List<string> ocorrenciasDeUmGrupo = new List<string>();
+		foreach(Capture umaCaptura in umGrupo.Captures)
+		{
+			ocorrenciasDeUmGrupo.Add(umaCaptura.Value);
+		}
+		valoresGrupos.Add(ocorrenciasDeUmGrupo);
+	}	
+
+
+
+
+
+*************************************************************************************************************************************************************
+How do I create a group in regex?
+They are created by placing the characters to be grouped inside a set of parentheses. For example, the regular expression (dog) creates a single group containing the letters "d", "o", and "g".
+**************************************************************************************************************************************************************
+
+grupo: ( padaria), é um grupo contendo o texto=padraria, para busca.
+NOME DE UM GRUPO: (?<nome_grupo> [o..9]*), com o nome entre os caracteres <,>, e o nome do grupo entre os caracteress (,).
+ 
+***************************************************************************************************************************************************************
+EXEMPLOS DE EXPRESSOES REGEX, GROUPS, CAPTURES:
+
+using System;
+using System.Text.RegularExpressions;
+
+class Program
+{
+    static void Main()
+    {
+        String sample = "hello-world-";
+        Regex regex = new Regex("-(?<test>[^-]*)-");
+
+        Match match = regex.Match(sample);
+
+        if (match.Success)
+        {
+            Console.WriteLine(match.Groups["test"].Value);
+        }
+    }
+}
+
+
+GroupCollection groups = regex.Match(line).Groups;
+
+foreach (string groupName in regex.GetGroupNames())
+{
+    Console.WriteLine(
+       "Group: {0}, Value: {1}",
+       groupName,
+       groups[groupName].Value);
+}
+
+
+
+
+*****************************************************************************************************************************************************************
+var regex = new Regex(@"(?<year>[\d]+)\|(?<month>[\d]+)\|(?<day>[\d]+)");
+    var namedCaptures = regex.MatchNamedCaptures(wikiDate);
+
+    string s = "";
+    foreach (var item in namedCaptures)
+    {
+        s += item.Key + ": " + item.Value + "\r\n";
+    }
+
+    s += namedCaptures["year"];
+    s += namedCaptures["month"];
+    s += namedCaptures["day"];
+
+*********************************************************************************************************************************************************************************************
+Groups e Capture Groups, regex in c sharp:
+
+using System;
+using System.Text.RegularExpressions;
+
+public class Example
+{
+   public static void Main()
+   {
+      string pattern = @"(\b(\w+?)[,:;]?\s?)+[?.!]";
+      string input = "This is one sentence. This is a second sentence.";
+
+      Match match = Regex.Match(input, pattern);
+      Console.WriteLine("Match: " + match.Value);
+      int groupCtr = 0;
+      foreach (Group group in match.Groups)
+      {
+         groupCtr++;
+         Console.WriteLine("   Group {0}: '{1}'", groupCtr, group.Value);
+         int captureCtr = 0;
+         foreach (Capture capture in group.Captures)
+         {
+            captureCtr++;
+            Console.WriteLine("      Capture {0}: '{1}'", captureCtr, capture.Value);
+         }
+      }   
+   }
+}
+// The example displays the following output:
+//       Match: This is one sentence.
+//          Group 1: 'This is one sentence.'
+//             Capture 1: 'This is one sentence.'
+//          Group 2: 'sentence'
+//             Capture 1: 'This '
+//             Capture 2: 'is '
+//             Capture 3: 'one '
+//             Capture 4: 'sentence'
+//          Group 3: 'sentence'
+//             Capture 1: 'This'
+//             Capture 2: 'is'
+//             Capture 3: 'one'
+//             Capture 4: 'sentence'

@@ -1,0 +1,33 @@
+
+
+Regex anotações:
+
+*? ----> 0 ou mais vezes
++? ----> 1 ou mais meses
+[a-z]-----> na faixa a-z 
+[^a -z]----> na faixa a-z
+i-----> caso sensitivo
+x-----> ignore espaço em branco.
+a|b ---> ou a ou b.
+\w ----> word caracter.
+. ----> qualquer, exceto \n (new line).
+() ----> grupo de simbolos simples.
+[] ----> grupo de simbolos.
+d{n}---> n digitos.
+\s -----> espaços em branco.
+(<nomeGrupoNomeado>) ---> funciona como um dicionario, relatando captura dentre do parenteses que fazem o match.
+operador ".": qualquer caracter. ex: ".+": um ou mais caracteres.
+
+
+
+MatchCollection=exp.Matches(string) ----> retorna todos matchs encontrados.
+Match match in matchCollection------> match.index: indice do match encontrado, match.Value: valor do match encontrado.
+
+
+Regex exp= new Regex(string)
+exp.IsMatch
+
+
+PROJETO "ParserOrquidea":
+	caracter aspas, valor unicode:
+	Unicode (\u0022)

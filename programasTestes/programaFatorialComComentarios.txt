@@ -1,0 +1,30 @@
+public class classe1 {
+
+	
+	public classe1()
+	{
+
+	};
+
+	// calcula o fatorial de um numero, por interacao.
+	public int fatorial(int x)
+	{
+		if ((x==0) || (x==1))
+		{
+			return 1;
+		};	
+		
+		int y=1;
+		// laco principal, fazendoo a iteracao.	
+		for (int n=1;n<=x;n++)
+		{
+			y=y*n;
+		};
+		
+		return y;
+	}
+};
+
+
+classe1 obj1= create();
+int b = obj1.fatorial(5);

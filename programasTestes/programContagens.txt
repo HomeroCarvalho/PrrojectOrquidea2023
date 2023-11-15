@@ -1,0 +1,22 @@
+public class classe1 {
+
+	
+	public classe1()
+	{
+
+	};
+	
+	public int metodoContagem(int x)
+	{
+		for (int i=0;i<2;i++)
+		{
+			x=x+i*2;
+		};
+		
+		return x;
+	};
+};
+
+
+classe1 obj1= create();
+int y = obj1.metodoContagem(3);

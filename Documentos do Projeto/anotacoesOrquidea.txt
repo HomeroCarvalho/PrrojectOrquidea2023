@@ -1,0 +1,81 @@
+ANOTAÇÕES PROJETO ORQUIDEA:
+
+	-----> (boa pratica de programação): simplificar e automatizar a obtenção de parâmetro de métodos.
+			por exemplo, classe "Escopo", "ProcessadorID" tivaram a adição de construtores simplicados na oobtenção de tokens, facilitando e muito a execução de testes.
+
+	
+	-----> (feito) a classe "FileHeaders" é muito util para registrar definições de metodos, também: contem o nome da classe do método, tipos de parâmetros,
+	       além de cancelar a compilação em dois estágios (! a linguagem orquidea tem (tinha) o mesmo problema da linguagem C),
+		   pois registra todas classes,metodos, propriedades e operadores do código. Tanto é que pode ser utilizado para validar tipos de objetos, além da definição de métodos.
+							----> (feito) codificar na classe "Classe" uma cópia de seu header, e também na definição de seus métodos.
+							
+							----> (feito) codificar como complemento, a obtenção de classes no RepositorioOOClasses, retornar headers caso
+								  a classe ainda não esteja compilada ainda.
+											----> com este complemento, não é preciso mais fazer compilação em dois estágios, eliminando
+											um bocado de "codigo-cola" para compilar duas vezes, para capturar definições de tipos, metodos, propriedades,
+											que também não era garantido..
+											----> (não é preciso) talvez seja preciso criar este complemento, na tabela de valores do escopo currente.
+
+											----> (feito, mas completado com "headers" para propriedades/metodos//operadores) é preciso modificar toda requisição GetClasse(), para ExisteClasse(), quando é necessário
+											somente saber se uma classe determinada existe ou não....
+							----> (feito) para extração de classes, utiliza-se headers para obter definições de: propriedades (campos, variáveis), métodos (nome, tipo de retorno, até mesmo os tokens do corpo do método), operadores.
+											----> a compilação do corpo de metodo é feito quando todo codigo de classes, funções estruturadas,variáveis estruturadas tiverem sido feito. Isso garante que não há utilização de objetos sem instanciação de sua classe...
+			
+	--------> um dicionario com multiplos valores! (seria como uma tupla em sql, onde a chave é primray key).
+			é diferenciado porque o dicionario é implementado numa tabela hash, e tuplas sql são implementados em arvores-B (creio eu).
+			A facilidade de codificar e manter uma tabela hash pode ser interessante, principalmente na busca pelo id primary key, ou outra coluna,
+			neste caso é criado uma segunda entrada na tabela hash, com ligação à primary key... [esboço].
+
+	--------> bibliotecas:
+			-----> uma biblioteca para manipulação de arquivos texto. essencial tanto quanto biblioteca de escrita/leitura de métodos na tela.
+			-----> um metodo mais amplo, em biblioteca "Prompt": sWrite com marcação de texto, e lista de objetos a escrever, como em "System.Console.WriteLine"...
+	
+
+	
+		   
+	-------> insersão de métodos/propriedades/operadores, codificar uma instrução para esta funcionalidade.
+	-------> (verificado, copia em profundidade) verificar se a copia em profundidade da classe TabelaDeVales, metodo "Clone", está copiando em profundidade os Objeto(s) ou
+		   se está copiando apenas por "referencia" (copia em superficie), o que não é desejado, pois altera o Objeto a ser copiado.
+
+		   
+		   
+		   
+		   -----> (codificando) implementar a classs "ExpressaoSearch", que contém processamento e e lista de expressoes que formam os parâmetros.
+		   
+		   
+		   ------> planjamento de um  "wrapperData":
+		   ------> deve  onter dados de construção e utilização, na forma de text.
+		   ------> texto de uma instanciação.
+		   ------> texto get; tamanho de lista de parâmetros variável.
+			-----> tezto set;		
+							------> metodos get: tem lista de parãmetros.
+							------> metodos set .
+							
+							
+							
+PARA NÃO ESQUECER, OUTROS PROJETOS;
+
+		----> (justificativa) dificuldade crescente em guardar pensamenos na memória de curto prazo, possivelmente por causa de remédios para insõnia...
+		
+		----> (MODIFICAR) o conteudo do menu de resultados, após o "ScreenFight", está desenhando como elementos palavras de código, como "this",
+			  o que parece ser colocação de aspas de modo certo.
+		
+		----> PROJETO MYCOMPONENTSFORGAMES: 
+		
+						-----> salvar configurações em arquivo, da classe "Formatter", para obter formatadores personalizados,
+							   e utilizado em muitas situações.
+						-----> no calculo de clusters de cores, em vez de comparar numeros semelhança de duas cores,
+							   comparar com divisão a um vetor "objetivo", conforme foi descrito na teoria..
+						-----> utilização de cores na escala gray, que acreditava resultado como duas componentes de cor, na
+							   teoria de escala gray, é uma componente de cor somente, facilita e muito o cálculo de vetores de cores.
+							   na verdade, nem da teoria de matriz semelhante seria necessário, bastando calcula o grau de semelhança
+						       sobre o componente unico de cor gray.
+												----> mas se utilizar a teoria de grau de semelhança, o vetor seria <gray, gray, gray>,
+												aplicando um redutor de dimensões com um vetor auxiliar, mais comparando com um vetor "objetivo",
+												como <255,255,255>. É vital utilizar o vetor "objetivo", pois o calculo de grau de semelhança
+												é feito de porcentagem de vetor de indicadores/ vetor objetivo.
+
+						-----> novo componente: TarefaAgendada: faz algo, durante um determinado tempo, ou um indicador mensurável, dentro do Loop
+						de um game. Após expirado tempo/indicador, o componente retira seus "update, draw", da listas de updates, draws, do loop do jogo....
+						
+												

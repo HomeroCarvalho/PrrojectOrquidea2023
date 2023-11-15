@@ -1,0 +1,15 @@
+public class classHelloWorld
+{
+	public classHelloWorld()
+	{
+	};
+	
+	public int ReadName()
+	{
+		Prompt.sWrite("Hello, World!");
+	};
+
+};
+
+classHelloWorld obj1= create();
+obj1.ReadName();

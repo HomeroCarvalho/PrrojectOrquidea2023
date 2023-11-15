@@ -1,0 +1,16 @@
+public class classLeNome
+{
+	public classLeNome()
+	{
+	};
+	
+	public int ReadName()
+	{
+		string nome=Prompt.sRead("Qual o seu nome? ");
+		Prompt.sWrite("Ola, "+nome);
+	};
+
+};
+
+classLeNome obj1= create();
+obj1.ReadName();

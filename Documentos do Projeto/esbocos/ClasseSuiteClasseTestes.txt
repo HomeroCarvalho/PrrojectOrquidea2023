@@ -1,0 +1,26 @@
+MODOFICACOES NA CLASSE DE TESTES: SuiteClasseTestes:
+
+	Na malha de metodos de testes, incluir um capturador de exceçõess.
+	Se o teste falhar lançando uma exceção, grava-se no arquivo log, que o
+	teste falhou com exceção, permitindo os demais testes serem feitos.
+	
+	novo tipo de assert: assert.isEqual(funcao que calcula o valor resultado, valor esoerado, comentarios ).
+	
+	a funcao que calcula o valor resultado, deve ser implementado via reflexão, com parametros uma lista variavel de objects,
+	e capturando como saida desta funcao, comparando com o valor esperado....
+	
+	
+	a classe providencia:
+			----> a adicao de metodos via reflexao para calculos de valores resultados.
+			----> a adicao de valores esperados.
+			----> a comparação de valores resultados e valores esperados.
+			
+			metodo estatico que faz o calculo do resultado:
+					As implementacoes devem ser com metodos estaticos, possiblitando sem formalismos
+					de cabeçalho de assercoes, com é o que está. Ao mesmo tempo, pode-se registrar
+					uma bateria de testes, possibilitando a execução de varios testes, em sequencia.
+							----> o metodo de execução deve ter: o nome da classe do cenario, o nome do metodo da classe do cenario, e uma lista variavel de parametros [object].
+							
+							
+			um metodo estatico que retorna o valor resultado...
+	

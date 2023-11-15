@@ -1,0 +1,22 @@
+public class classeNumero
+{
+	public classeNumero()
+	{
+	};
+	
+	public int EhNumero(int n)
+	{
+		if (n%2==0)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+		
+	};
+	
+};
+classeNumero obj1= create();
+int y= obj1.EhNumero(2);

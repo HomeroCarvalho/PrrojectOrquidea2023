@@ -1,0 +1,26 @@
+public class classeFatorial
+{
+	public classeFatorial()
+	{
+		int b=2;
+	};
+	
+	public int fatorial(int x)
+	{
+		
+		if (x<=1)
+		{
+			return 1;
+		}
+		else
+		{	int n=x;
+			return n*fatorial(n-1);
+			
+		};
+		
+		
+	}
+};
+
+classeFatorial obj1= create();
+int y= obj1.fatorial(5);
