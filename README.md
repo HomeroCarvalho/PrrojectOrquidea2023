@@ -54,3 +54,15 @@ Wrapper Data Object Types Implemented:
 New types of Data Wrappers can be created by implementing the [WrapperData] abstract class. the code works from method calls..
 
 
+
+Go to action:
+To run an orquidea program via the project terminal,
+go to the ProgramasTestes folder, and run the terminal:
+./terminalOrquidea.exe HelloWorld.txt
+this terminal line will run the HelloWorld program.
+
+There is no output in the console for other programs, except the programLeNome.txt,
+which asks for a name to be typed, and returns a sentence composing the name.
+
+terminalOrquidea.exe is in 1st place. branch, after main, where
+There is also the test programs folder.
