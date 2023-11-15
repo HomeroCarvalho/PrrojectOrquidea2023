@@ -1,0 +1,94 @@
+CONJUNTO DE INSTRUÇÕES (COMANDOS) DA LINGUAGEM ORIENTADA A OBJETO:
+
+
+	----> TODOS metodos podem funcionar como metodos estáticos! funções em programação estruturadas são estáticas,
+	      justamento porque não há o conceito "estático" neste paradigma. funções estáticas nesta linguagem são feitas
+	      como chamadas de metodo, com um objeto ficticio, que está fora da lógica do programa compilado...
+
+	classeObjeto nomeObjeto= create( params Expressao[] parametros);
+	vetor nomeVetor= create(tipoDoElementoDoVetor, params Expressao[] parametros);
+
+
+	classe_herdeira.construtorUP(classe_herdada, List<Expressao> parametros);
+
+	importer (nomeArquivoAssembly);
+
+	while (expressaoCondicional) {bloco_de_instrucoes}
+
+	for (instanciacao_variavel_controle; expressao_condicional_de_parada; incremento_variavel_controle) { bloco_de_instrucoes}
+
+	for (variavel_controle; expressao_condicional_de_entrada; incremento_variavel_controle) { bloco_de_instrucoes}
+
+	if (expressao_condicional) { bloco_de_instrucoes}
+	
+	if (expressao_condicional) { bloco_de_instrucoes} else { bloco_de_instrucoes}
+
+	operador classe_do_operador nome_do_operador ( classe_do_primeiro_operando nome_do_primeiro_operando, classe_do_segundo_operando nome_segundo_operando) prioridade X metodo MetodoDeChamadaDoOperando;
+
+	operador classe_do_operador nome_do_operador ( classe_do_primeiro_operando nome_do_primeiro_operando) prioridade X metodo MetodoDeChamadaDoOperando;
+
+	nill (objeto nulo dentro da linguagem).
+
+	break;
+
+	continue;
+	
+	return expressao;
+
+	SetVar (nome_variavel, novo_valor_variavel);
+
+	objeto GetObjeto(nome_objeto);
+
+	casesOfUse variavel_teste: ( operador variavel_ou_constante_do_case1:{bloco de instrucoes} , case operador variavel_ou_constante_do_case2: {bloco de instrucoes}... )
+
+	acessors POO: public, private, protected.
+
+	definição de métodos:
+		acessor objeto_retorno NomeMetodo(tipo_parametro1 nome_parametro1,... tipo_parametroN nome_parametroN) {bloco de instrucoes}
+
+	definição de funções: (programação estruturada)
+		variavel_retorno NomeMetodo(tipo_parametro1 nome_parametro1,... tipo_parametroN nome_parametroN) {bloco de instrucoes}	
+
+	definicao de propriedades:
+		acessor classeDaPropriedade nomeDaPropriedade;
+		acessor classeDaPropriedade nomeDaPropriedade= valorDaPropriedade;
+
+	atribuicao:
+		nomeDaPropriedade= expressaoAtribuicao;
+		classeDaPropriedade nomeDaPropriedade= expressaoAtribuicao;
+
+	classe:
+		classe : + classeHerdada, ..., + interfaceHerdada... { propriedades; métodos}
+
+	interface:
+		como classes, mas metodos nao tem corpo, mas pode haver instanciacao de propriedades.
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
+PROGRAMACAO ORIENTADA A ASPECTOS:
+
+    aspecto:
+	
+	aspecto NameId typeInsertId (TypeObject:string, nameTemporaryObject: string ,nameMethod: string ) { Funcao  funcaoCorte(Objeto x){}}.
+			NameID: nome de identificação do aspecto.
+	
+	typeInsertId: "before", "after", ou "all".
+				"before": insercao da funcao de corte antes da instrucao monitorada.
+				"afer": insercao da funcao de corte apos a instrucao monitorada.
+				"all": após cada instrução de um método.
+	
+	TypeObjetct: nome do tipo de objetos a monitorar (a sofrer a funcao Corte).
+	
+	nameTemporaryObject: nome temporario (alias), que será processado pelas instruções da funcao Corte.
+								Este nome temporario deverá ser o mesmo quando da manipulação do objeto monitorado, na funcao de corte.
+		
+	
+	nameMethod: nome do metodo, que junto do TypeObject, server de orientação para inserção de função corte.
+	
+	[BLOCO]:  contém a definição da funcao corte. deve ter um parametro, o Objeto que será modificado quando houver a chamada da função de corte, nas instrucoes do programaEmVM.
+
+
+________________________________________________________________________________________________________________________________________________________________________________________
+
+
+

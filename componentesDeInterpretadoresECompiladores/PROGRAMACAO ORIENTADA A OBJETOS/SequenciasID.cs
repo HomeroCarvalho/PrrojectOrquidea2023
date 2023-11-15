@@ -1,0 +1,153 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace parser.ProgramacaoOrentadaAObjetos
+{
+
+    /// <summary>
+    /// classe que guarda uma sequencias de tokens id, que representa uma sequencia id válida.
+    /// </summary>
+    public class UmaSequenciaID
+    {
+
+        public List<string> tokens { get; set; } //  sequencia ID com os tokens sem modificações.
+  
+        public List<Expressao> expressoes { get; set; } // lista de expressões relacionadas a uma sequencia id. Essa lista é cruscial para processamento de sequencias id que envolvem instruções da linguagem.
+
+
+        public List<List<UmaSequenciaID>> sequenciasDeBlocos { get; set; }
+       
+        public Producao producao { get; set; } // produção associada à sequencia.
+
+   
+
+        private static LinguagemOrquidea linguagem = LinguagemOrquidea.Instance(); // linguagem utilizada: orquidea.
+        public int indexHandler; // indice do método handler da sequencia id.
+
+     
+        public UmaSequenciaID(string[] seOriginal, List<string> codigo)
+        {
+            
+            List<string> tokens = new Tokens(codigo).GetTokens();
+      
+            this.sequenciasDeBlocos = new List<List<UmaSequenciaID>>();
+         
+            LinguagemOrquidea linguagem = LinguagemOrquidea.Instance();
+            Random aleatorizador = new Random(50000); // compoe um nome aleatório para a sequenciaID.
+        
+            this.tokens = seOriginal.ToList<string>(); // inicializa os  a sequencia com os tokens originais;
+            this.expressoes = new List<Expressao>();//inicializa a lista de expressões associadas a sequencia id.
+
+
+            this.indexHandler = -1;  // inicializa o indice do método principal.
+
+        } // UmaSequenciaID()
+
+        public override string ToString()
+        {
+            string str = "";
+            if (this.expressoes != null)
+            {
+                for (int x = 0; x < this.expressoes.Count; x++)
+                    str += this.expressoes[x].ToString();
+            } // if
+            for (int x = 0; x < tokens.Count; x++)
+                str += tokens[x] + " ";
+            return str.TrimEnd(' ').TrimStart(' ');
+
+        } // ToString()
+
+        public override int GetHashCode()
+        {
+            int hash = 0;
+            for (int c = 0; c < this.tokens[0].Length; c++)
+                hash += (int)this.tokens[0][c];
+            return hash;
+        } // GetHashCode()
+
+        /*
+       * 1 ---> metodo de obter sequenciaid: termos-chave, parenteses--(tokens entre operadores parenteses), ; (final de sequencia), { ( tokens entre operadores bloco).
+          --> se token="(", obtém tokens entre operadores parenteses, acrescenta a lista de tokens da sequencia, e continua o loop de tokens.
+          --> se token= ";", retorna a sequencia.
+          --> se token="{", obtém tokens entre operadores bloco, acrescenta a lista de tokens da sequencia, e retorna a sequencia.
+       */
+
+        public static UmaSequenciaID ObtemUmaSequenciaID(int startIndex, string str_tokens, string str_codigo)
+        {
+            List<string> tokens = new Tokens(str_tokens).GetTokens();
+            List<string> codigo= new Tokens(str_codigo).GetTokens();
+
+            return ObtemUmaSequenciaID(startIndex, tokens, codigo);
+        }
+
+
+
+        public static UmaSequenciaID ObtemUmaSequenciaID(int startIndex, List<string> tokens, List<string> codigo)
+        {
+            List<string> tokensDaSequencia = new List<string>();
+            int umToken = startIndex;
+            while (umToken < tokens.Count)
+            {
+                if (tokens[umToken] == ";")
+                {
+                    tokensDaSequencia.Add(";");
+                    return new UmaSequenciaID(tokensDaSequencia.ToArray(), codigo);
+                } // if
+                else
+                if (tokens[umToken] == "{")
+                {
+                    List<string> bloco = UtilTokens.GetCodigoEntreOperadores(umToken, "{", "}", tokens);
+                    if ((bloco != null) && (bloco.Count > 0))
+                    {
+                        tokensDaSequencia.AddRange(bloco);
+                        umToken += bloco.Count;
+                    } // if bloco
+                } // if
+                else
+                if (tokens[umToken] == "(")
+                {
+                    List<string> tokensEntreParentes = UtilTokens.GetCodigoEntreOperadores(umToken, "(", ")", tokens);
+                    if ((tokensEntreParentes != null) && (tokensEntreParentes.Count >= 1))
+                    {
+                        tokensDaSequencia.AddRange(tokensEntreParentes);
+                        umToken += tokensEntreParentes.Count;
+                    } // if
+                } // if
+                else
+                {
+                    tokensDaSequencia.Add(tokens[umToken]); // adiciona o token currente na lista de tokens da sequencia.
+                    umToken++;
+                } //else
+            } // for umToken
+
+            return new UmaSequenciaID(tokensDaSequencia.ToArray(), codigo);
+        } // ObtemUmaSequenciaID()
+
+    } // class UmaSequenciaID
+
+
+    // ordena em ordem decrescente strings, tendo como parãmetro de ordenação o cumprimento das strings.
+    // Utilizado principalmente na construção de sequencias e processamento de sequencias, no método MatchSequencia().
+    public class ComparerSequenciasID : IComparer<string>
+    {
+        int IComparer<string>.Compare(string? x, string ?y)
+        {
+            if (x == null)
+            {
+                return 0; ;
+            }
+            if (y == null)
+            {
+                return 0;
+            }
+            if (x.Length > y.Length)
+                return -1;
+            if (x.Length < y.Length)
+                return +1;
+            return 0;
+        }// Compare()
+    } // ComarerSequenciasID
+}// namespace
