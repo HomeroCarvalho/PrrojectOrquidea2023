@@ -1,4 +1,4 @@
-# PrrojectOrquidea2023
+# ProjectOrquidea2023
 
 This is a holistic study project on programming languages. Contains a Prolog interpreter, a LISP interpreter,
 an OOP language (similar syntax as C,C++,C sharp,Java), OOP (Aspects), and functional programming.
